@@ -35,7 +35,6 @@ def ups_ping():
                     "value": f"`{'█' * (p // 10)}{'░' * (10 - (p // 10))}` {p}%"
                 }
             ],
-            "footer": {"text": "ESP32-P4 N16R8 Monitor :3"},
             "timestamp": None
         }]
     }
