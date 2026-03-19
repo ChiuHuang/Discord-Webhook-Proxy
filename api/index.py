@@ -40,7 +40,7 @@ def ups_ping():
         }]
     }
 
-    resp = requests.post(DISCORD_WEBHOOK_URL, json=payload)
+    resp = requests.post(url, json=payload)
     return jsonify({"discord_code": resp.status_code}), resp.status_code
 
 if __name__ == '__main__':
