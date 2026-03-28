@@ -19,14 +19,24 @@ def ups_ping():
     r2 = data.get("r2", 0)
     is_low = (p <= 10 and not chg)
     content = f"<@{user_id}>  Your Battery Is Dying..." if is_low else ""
+    """
     
+R1: ON, R2: ON -> NO POWER
+R1: ON, R2: OFF -> BAT ONLY 
+R1: OFF, R2: OFF -> BAT+WALL 
+R1: OFF, R2: ON -> WALL POWER 
+
+peak soldering skills ahh 
+
+"""
     color = 0xFF0000 if is_low else (0x00FF00 if chg else 0xFFFF00)
     status_text = "Charging" if chg else "Battery Mode"
     possibleMode = {
-        (1, 1): "WALL",
-        (1, 0): "BAT",
+        
+        (1, 1): "NOPOWER",
+        (1, 0): "BAT ONLY",
         (0, 0): "BAT+WALL",
-        (0, 1): "NOPOWER"
+        (0, 1): "WALL ONLY"
     }.get((r1, r2), "UNKNOWN")
     # Construct the Discord Payload
     payload = {
