@@ -26,7 +26,7 @@ def ups_ping():
     possibleMode = (
         "WALL" if r1 and r2 else
         "BAT" if r1 else
-        "BAT+WALL" if r2 else
+        "BAT+WALL" if r1 + r2 == 0  else
         "UNKNOWN"
         ),
     # Construct the Discord Payload
