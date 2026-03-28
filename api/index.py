@@ -15,13 +15,20 @@ def ups_ping():
     p = data.get("p", 0)      # percent
     chg = data.get("chg", False) # Charging
     user_id = data.get("id", "") # Discord ID
-
+    r1 = data.get("r1", 0)
+    r2 = data.get("r2", 0)
     is_low = (p <= 10 and not chg)
     content = f"<@{user_id}>  Your Battery Is Dying..." if is_low else ""
     
     color = 0xFF0000 if is_low else (0x00FF00 if chg else 0xFFFF00)
     status_text = "Charging" if chg else "Battery Mode"
 
+    possibleMode = (
+        "WALL" if r1 and r2 else
+        "BAT" if r1 else
+        "BAT+WALL" if r2 else
+        "UNKNOWN"
+        ),
     # Construct the Discord Payload
     payload = {
         "content": content,
@@ -33,7 +40,13 @@ def ups_ping():
                 {
                     "name": "Power Level",
                     "value": f"`{'█' * (p // 10)}{'░' * (10 - (p // 10))}` {p}%"
-                }
+                },
+                
+                {
+                    "name": "Possable Mode",
+                    "value": f"Mode: {possibleMode} Relay1:{r1},Relay2:{r2}"
+                },
+                
             ],
             "timestamp": None
         }]
