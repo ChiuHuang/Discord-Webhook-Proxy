@@ -27,6 +27,7 @@ def ups_ping():
         "WALL" if r1 and r2 else
         "BAT" if r1 else
         "BAT+WALL" if r1 + r2 == 0  else
+        "NOPOWER" if r2  else
         "UNKNOWN"
         ),
     # Construct the Discord Payload
